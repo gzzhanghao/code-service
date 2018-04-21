@@ -3,7 +3,7 @@ import * as ws from 'ws'
 import * as path from 'path'
 import * as vscode from 'vscode'
 
-let config = vscode.workspace.getConfiguration('openservice')
+let config = vscode.workspace.getConfiguration('codeservice')
 let server: ws.Server|null = null
 
 export function activate(context: vscode.ExtensionContext) {
@@ -11,11 +11,11 @@ export function activate(context: vscode.ExtensionContext) {
     restartServer()
 
     vscode.workspace.onDidChangeConfiguration(event => {
-        if (event.affectsConfiguration('openservice')) {
+        if (event.affectsConfiguration('codeservice')) {
             log('configuration changed, reload configs')
-            config = vscode.workspace.getConfiguration('openservice')
+            config = vscode.workspace.getConfiguration('codeservice')
         }
-        if (event.affectsConfiguration('openservice.serverPort')) {
+        if (event.affectsConfiguration('codeservice.serverPort')) {
             log('server port changed, restart server')
             restartServer()
         }
@@ -100,7 +100,7 @@ function closeServer() {
 
 function log(...args: any[]) {
     if (config.debug) {
-        console.log('[preview-server]', ...args)
-        vscode.debug.activeDebugConsole.appendLine(`[preview-server] ${args.join(' ')}`)
+        console.log('[code-service]', ...args)
+        vscode.debug.activeDebugConsole.appendLine(`[code-service] ${args.join(' ')}`)
     }
 }

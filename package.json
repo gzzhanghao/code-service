@@ -1,6 +1,6 @@
 {
-    "name": "vscode-preview-server",
-    "displayName": "PreviewServer",
+    "name": "code-service",
+    "displayName": "CodeService",
     "description": "Open files in vscode with WebSocket",
     "version": "0.0.1",
     "publisher": "Jason",
@@ -17,26 +17,26 @@
     "contributes": {
         "configuration": {
             "type": "object",
-            "title": "PreviewServer configuration",
+            "title": "CodeService configuration",
             "properties": {
-                "previewserver.serverPort": {
+                "codeservice.serverPort": {
                     "type": "number",
                     "default": 8392,
-                    "description": "Port for preview server to listen"
+                    "description": "Port for code service to listen"
                 },
-                "previewserver.basePaths": {
+                "codeservice.basePaths": {
                     "type": [
                         "string",
                         "object",
                         "null"
                     ],
                     "default": null,
-                    "description": "Paths for preview server to resolve the file"
+                    "description": "Paths for code service to resolve files"
                 },
-                "previewserver.debug": {
+                "codeservice.debug": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Enable debug mode for preview server"
+                    "description": "Enable debug mode for code service"
                 }
             }
         }
