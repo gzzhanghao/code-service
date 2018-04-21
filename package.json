@@ -1,0 +1,61 @@
+{
+    "name": "vscode-preview-server",
+    "displayName": "PreviewServer",
+    "description": "Open files in vscode with WebSocket",
+    "version": "0.0.1",
+    "publisher": "Jason",
+    "engines": {
+        "vscode": "^1.22.0"
+    },
+    "categories": [
+        "Other"
+    ],
+    "activationEvents": [
+        "*"
+    ],
+    "main": "./out/extension",
+    "contributes": {
+        "configuration": {
+            "type": "object",
+            "title": "PreviewServer configuration",
+            "properties": {
+                "previewserver.serverPort": {
+                    "type": "number",
+                    "default": 8392,
+                    "description": "Port for preview server to listen"
+                },
+                "previewserver.basePaths": {
+                    "type": [
+                        "string",
+                        "object",
+                        "null"
+                    ],
+                    "default": null,
+                    "description": "Paths for preview server to resolve the file"
+                },
+                "previewserver.debug": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Enable debug mode for preview server"
+                }
+            }
+        }
+    },
+    "scripts": {
+        "vscode:prepublish": "npm run compile",
+        "compile": "tsc -p ./",
+        "watch": "tsc -watch -p ./",
+        "postinstall": "node ./node_modules/vscode/bin/install",
+        "test": "npm run compile && node ./node_modules/vscode/bin/test"
+    },
+    "devDependencies": {
+        "@types/node": "^7.0.43",
+        "@types/ws": "^4.0.2",
+        "tslint": "^5.8.0",
+        "typescript": "^2.6.1",
+        "vscode": "^1.1.6"
+    },
+    "dependencies": {
+        "ws": "^5.1.1"
+    }
+}
