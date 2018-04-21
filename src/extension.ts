@@ -59,10 +59,24 @@ function restartServer() {
                     basePath = basePath[msg.project]
                 }
 
+                const options: vscode.TextDocumentShowOptions = { preview: msg.preview !== false }
                 const uri = vscode.Uri.file(path.join(basePath, msg.path))
-                const doc = await vscode.workspace.openTextDocument(uri)
 
-                await vscode.window.showTextDocument(doc, msg.options)
+                if (msg.range) {
+                    const args: [number, number, number, number] = [
+                        msg.range.line, msg.range.column || 0,
+                        msg.range.line, msg.range.column || 0,
+                    ]
+                    if ('endLine' in msg.range) {
+                        args[2] = msg.range.endLine
+                    }
+                    if ('endColumn' in msg.range) {
+                        args[3] = msg.range.endColumn
+                    }
+                    options.selection = new vscode.Range(args[0], args[1], args[2], args[3])
+                }
+
+                await vscode.window.showTextDocument(uri, options)
             } catch (error) {
                 log('open file error:', error.stack)
             }
