@@ -49,6 +49,10 @@ function restartServer() {
             log('connection error:', error.stack)
         })
 
+        socket.once('close', () => {
+            log('connection closed')
+        })
+
         socket.on('message', async data => {
             try {
                 log('message received', data)
