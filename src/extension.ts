@@ -3,7 +3,7 @@ import * as ws from 'ws'
 import * as path from 'path'
 import * as vscode from 'vscode'
 
-let config = vscode.workspace.getConfiguration('previewserver')
+let config = vscode.workspace.getConfiguration('openservice')
 let server: ws.Server|null = null
 
 export function activate(context: vscode.ExtensionContext) {
@@ -11,11 +11,11 @@ export function activate(context: vscode.ExtensionContext) {
     restartServer()
 
     vscode.workspace.onDidChangeConfiguration(event => {
-        if (event.affectsConfiguration('previewserver')) {
+        if (event.affectsConfiguration('openservice')) {
             log('configuration changed, reload configs')
-            config = vscode.workspace.getConfiguration('previewserver')
+            config = vscode.workspace.getConfiguration('openservice')
         }
-        if (event.affectsConfiguration('previewserver.serverPort')) {
+        if (event.affectsConfiguration('openservice.serverPort')) {
             log('server port changed, restart server')
             restartServer()
         }
@@ -53,6 +53,10 @@ function restartServer() {
             try {
                 log('message received', data)
                 const msg = JSON.parse(data.toString())
+
+                if (msg.type !== 'open') {
+                    return
+                }
 
                 let basePath = config.basePaths || os.homedir()
                 if ('project' in msg) {
