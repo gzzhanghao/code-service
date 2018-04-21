@@ -57,5 +57,13 @@
     },
     "dependencies": {
         "ws": "^5.1.1"
-    }
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/gzzhanghao/code-service.git"
+    },
+    "bugs": {
+        "url": "https://github.com/gzzhanghao/code-service/issues"
+    },
+    "homepage": "https://github.com/gzzhanghao/code-service#readme"
 }
