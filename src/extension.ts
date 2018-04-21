@@ -67,7 +67,11 @@ function restartServer() {
                     basePath = basePath[msg.project]
                 }
 
-                const options: vscode.TextDocumentShowOptions = { preview: msg.preview !== false }
+                const options: vscode.TextDocumentShowOptions = {
+                    preview: msg.preview !== false,
+                    preserveFocus: msg.preserveFocus,
+                }
+
                 const uri = vscode.Uri.file(path.join(basePath, msg.path))
 
                 if (msg.range) {
